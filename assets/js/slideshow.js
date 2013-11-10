@@ -296,7 +296,7 @@ var app = (function(app, $) {
 		function _init_close_modal() {
 
 			// close modals
-			$('.icon-close').click(function(){
+			$('.icon-cross').click(function(){
 				
 				if ( keys_info_visible === true ) {
 					_keyboard_shortcuts_info();

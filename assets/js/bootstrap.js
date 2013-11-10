@@ -117,7 +117,7 @@ var app = (function( app ) {
 			}).appendTo( 'body' );
 
 			$('<div />', {
-				class: 'icon-close'
+				class: 'icon-cross'
 			}).appendTo( '.overlay' );
 		}
 
