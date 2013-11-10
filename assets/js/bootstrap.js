@@ -90,12 +90,14 @@ var app = (function( app ) {
 		function _onload() {
 			$('.no-js-message').remove();
 
-			$('<div />', {
-				class: 'date'
-			}).appendTo( 'header' );
-			$('<div />', {
-				class: 'image'
-			}).appendTo( 'main' );
+			// image markup
+			_preload_images();
+
+			// date markup
+			_preload_header();
+
+			// append close button
+			_preload_about();
 
 			// load visual controls
 			_load_controls();
@@ -115,10 +117,6 @@ var app = (function( app ) {
 			$('<div />', {
 				class: 'overlay hide'
 			}).appendTo( 'body' );
-
-			$('<div />', {
-				class: 'icon-cross'
-			}).appendTo( '.overlay' );
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -128,8 +126,44 @@ var app = (function( app ) {
 				url: 'assets/includes/shortcuts.html',
 				cache: false
 			}).done(function( html ) {
-				$( '.overlay' ).append( html );
+				$( 'body' ).append( html );
+				$('<div />', {
+					class: 'icon-cross'
+				}).appendTo( '.shortcuts' );
 			});
+		}
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+		function _preload_images() {
+			$('<div />', {
+				class: 'images'
+			}).appendTo( 'main' );
+			$('<div />', {
+				class: 'image current'
+			}).appendTo( '.images' );
+			$('<div />', {
+				class: 'image prev'
+			}).appendTo( '.images' );
+			$('<div />', {
+				class: 'image next'
+			}).appendTo( '.images' );
+		}
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+		function _preload_header() {
+			$('<div />', {
+				class: 'date'
+			}).appendTo( 'header' );
+		}
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+		function _preload_about() {
+			$('<div />', {
+				class: 'icon-cross'
+			}).appendTo( '.about' );
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

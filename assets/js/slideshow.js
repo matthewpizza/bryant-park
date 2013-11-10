@@ -17,7 +17,11 @@ var app = (function(app, $) {
 			total = null,
 			date = null,
 			link = null,
-			img = null,
+			current_img = null,
+			prev_img = null,
+			prev_count = 0,
+			next_img = null,
+			next_count = 0,
 			timer = null,
 			is_playing = false,
 			modal_visible = false,
@@ -29,7 +33,6 @@ var app = (function(app, $) {
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 		
 		function _init() {
-
 
 			$.getJSON('assets/json/images.json').done(function(data) {
 
@@ -83,8 +86,21 @@ var app = (function(app, $) {
 			link = data[count].link;
 			$('.date').html('<a href="' + link + '" target="_blank">' + date + '</a>');
 
-			img = data[count].file;
-			$('.image').css({ 'background-image':  'url(' + img + ')' });
+			prev_count = _prev_count(count);
+			next_count = _next_count(count);
+
+			current_img = data[count].file;
+			prev_img = data[prev_count].file;
+			next_img = data[next_count].file;
+
+			$('.image.current')
+				.css({ 'background-image':  'url(' + current_img + ')' });
+
+			$('.image.prev')
+				.css({ 'background-image':  'url(' + prev_img + ')' });
+
+			$('.image.next')
+				.css({ 'background-image':  'url(' + next_img + ')' });
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -100,7 +116,7 @@ var app = (function(app, $) {
 				if ( keys.key_37 ) {
 					if ( modal_visible === false ) {
 						_prev(data);
-						$('.previous').addClass('active');
+						$('.controls .prev').addClass('active');
 					}
 				}
 
@@ -108,7 +124,7 @@ var app = (function(app, $) {
 				if ( keys.key_39 ) {
 					if ( modal_visible === false ) {
 						_next(data);
-						$('.next').addClass('active');
+						$('.controls .next').addClass('active');
 					}
 				}
 
@@ -116,7 +132,7 @@ var app = (function(app, $) {
 				if ( keys.key_71 && keys.key_82 ) {
 					if ( modal_visible === false ) {
 						_random(0, total, data);
-						$('.random').addClass('active');
+						$('.controls .random').addClass('active');
 					}
 				}
 
@@ -125,7 +141,7 @@ var app = (function(app, $) {
 					if ( modal_visible === false ) {
 						if ( count !== 0 ) {
 							_restart( data );
-							$('.restart').addClass('active');
+							$('.controls .restart').addClass('active');
 						}
 					}
 				}
@@ -196,6 +212,14 @@ var app = (function(app, $) {
 						}
 					break;
 
+					case 'info':
+						_project_info();
+
+						if ( is_playing === true ) {
+							_pause();
+						}
+					break;
+
 					case 'next':
 						_next( data );
 
@@ -204,7 +228,7 @@ var app = (function(app, $) {
 						}
 					break;
 
-					case 'previous':
+					case 'prev':
 						_prev( data );
 
 						if ( is_playing === true ) {
@@ -266,7 +290,7 @@ var app = (function(app, $) {
 						}
 					break;
 
-					case 'previous':
+					case 'prev':
 						_prev( data );
 
 						if ( is_playing === true ) {
@@ -296,8 +320,7 @@ var app = (function(app, $) {
 		function _init_close_modal() {
 
 			// close modals
-			$('.icon-cross').click(function(){
-				
+			$('.icon-cross, .overlay').click(function() {
 				if ( keys_info_visible === true ) {
 					_keyboard_shortcuts_info();
 				}
@@ -305,9 +328,7 @@ var app = (function(app, $) {
 				if ( project_info_visible === true ) {
 					_project_info();
 				}
-				
 			});
-
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -332,11 +353,7 @@ var app = (function(app, $) {
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 		function _next( data ) {
-			count++;
-
-			// loop around to the beginning							
-			if ( count > total )
-				count = 0;
+			count = _next_count( count );
 
 			_load( count, data );
 		}
@@ -344,13 +361,33 @@ var app = (function(app, $) {
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 		function _prev( data ) {
-			count--;
-
-			// loop around to the end
-			if ( count === -1 )
-				count = total;
+			count = _prev_count( count );
 
 			_load( count, data );
+		}
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+		function _next_count( next ) {
+			next++;
+
+			// loop around to the beginning							
+			if ( next > total )
+				next = 0;
+
+			return next;
+		}
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+		function _prev_count( prev ) {
+			prev--;
+
+			// loop around to the end
+			if ( prev === -1 )
+				prev = total;
+
+			return prev;
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -397,8 +434,8 @@ var app = (function(app, $) {
 
 		function _keyboard_shortcuts_info() {
 			if ( keys_info_visible === false ) {
-				$('.shortcuts').show();
 				_toggle_modal();
+				$('.shortcuts').show();
 				keys_info_visible = true;
 			} else {
 				_toggle_modal();
@@ -411,10 +448,17 @@ var app = (function(app, $) {
 
 		function _project_info() {
 			if ( project_info_visible === false ) {
-				$('.overlay, .info').show();
+				var window_height = $( window ).height(),
+					modal_height = window_height - 80;
+
+				_toggle_modal();
+				$('.about')
+					.css( 'height', modal_height + 'px' )
+					.show();
 				project_info_visible = true;
 			} else {
-				$('.overlay, .info').hide();
+				_toggle_modal();
+				$('.about').hide();
 				project_info_visible = false;
 			}
 		}
