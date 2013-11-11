@@ -58,9 +58,11 @@ var app = (function(app, $) {
 
 				_init_keyboard( data );
 				_init_controls( data );
-				_init_close_modal();
 
 			}
+
+			
+			_init_close_modal();
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -257,8 +259,6 @@ var app = (function(app, $) {
 
 		function _init_touch( data ) {
 
-			debug('Touch!');
-
 			$('.controls a').on('tap', function(e) {
 
 				var class_name = $(this).attr( 'class' );
@@ -276,6 +276,14 @@ var app = (function(app, $) {
 						if ( count !== 0 ) {
 							_restart( data );
 						}
+
+						if ( is_playing === true ) {
+							_pause();
+						}
+					break;
+
+					case 'info':
+						_project_info();
 
 						if ( is_playing === true ) {
 							_pause();
@@ -320,7 +328,7 @@ var app = (function(app, $) {
 		function _init_close_modal() {
 
 			// close modals
-			$('.icon-cross, .overlay').click(function() {
+			$('.icon-cross, .overlay').on( 'click tap', function() {
 				if ( keys_info_visible === true ) {
 					_keyboard_shortcuts_info();
 				}
@@ -450,6 +458,10 @@ var app = (function(app, $) {
 			if ( project_info_visible === false ) {
 				var window_height = $( window ).height(),
 					modal_height = window_height - 80;
+
+				if ( $('html').hasClass('touch') ) {
+					modal_height = window_height;
+				}
 
 				_toggle_modal();
 				$('.about')

@@ -1,0 +1,65 @@
+@media only screen and (min-width : 320px) and (max-width : 568px) {
+
+	h1 {
+		font-size: 38px;
+		line-height: 70px;
+	}
+
+	header {
+		left: 12px;
+		bottom: 0;
+	}
+
+	.touch {
+	}
+	
+	main {
+		.controls {
+			a {
+				&.restart {
+					display: none;
+				}
+
+				&.play,
+				&.pause {
+					font-size: 36px;
+					line-height: 36px;
+
+					right: 10px;
+					bottom: 14px;
+					
+					&.active,
+					&:active {
+						bottom: 12px;
+					}
+				}
+				&.pause {
+					display: none;
+				}				
+			}
+		}
+	}
+
+	.about { 
+		padding: 24px 48px;
+	}
+
+}
+
+
+
+.touch {
+	main {
+		.controls {
+			a {
+				&.prev,
+				&.next {
+					display: none;
+				}
+			}
+		}
+	}
+	.about {
+		top: 0;
+	}
+}

@@ -105,12 +105,11 @@ main {
 		max-width: 612px;
 
 		&.current {
-			z-index: 2;
+			z-index: -1;
 		}
 
 		&.prev,
 		&.next {
-			z-index: 1;
 			display: none;
 		}
 	}
@@ -346,3 +345,6 @@ main {
 		}
 	}
 }
+
+
+@import 'responsive.less';
