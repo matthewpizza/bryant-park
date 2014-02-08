@@ -6,18 +6,34 @@
 
 		<title>Bryant Park</title>
 
-		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nova+Mono">
-		<link rel="stylesheet" href="styles.css">
+		<link rel="stylesheet" href="assets/app.css">
 
-		<script type="text/javascript">document.documentElement.className = 'js';</script>
 		<script type="text/javascript">
-		(function() {
-			var config = {
-				kitId: 'nck5pcn',
-				scriptTimeout: 3000
+			document.documentElement.className = 'js wf-loading';
+
+			WebFontConfig = {
+				custom: {
+					families: ['icomoon'],
+					urls: ['assets/fonts/icomoon.css']
+				},
+				google: {
+					families: ['Nova Mono']
+				},
+				typekit: {
+					id: 'nck5pcn'
+				},
+				timeout: 500
 			};
-			var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
-		})();
+
+			(function() {
+				var wf = document.createElement('script');
+				wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+					'://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js';
+				wf.type = 'text/javascript';
+				wf.async = 'true';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(wf, s);
+			})();
 		</script>
 	</head>
 	<body>
@@ -31,23 +47,13 @@
 		<main>
 		</main>
 
-
 		<section class="about">
 			<div class="no-js-message">
 				<h2>Ah man.</h2>
-				<p>It looks like you don’t have javascript. To really enjoy this you kind of need it. But alas. You don’t. If you want to see the images anyway, <a href="assets/images/" target="_blank">go ahead</a>.</p>
+				<p>It looks like you don’t have javascript enabled. To really enjoy this you kind of need it. But alas. You don’t. If you want to see the images anyway, <a href="assets/images/" target="_blank">go ahead</a>.</p>
 			</div>
-
-			<h2>What</h2>
-			<p>Lunch. Documenting time. Etc.</p>
-
-			<h3>Map</h3>
-			<p>Embed map here. Use the lat/long from the Instagram json.</p>
 		</section>
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script src="assets/js/bootstrap.js"></script>
-		<script src="assets/js/slideshow.js"></script>
-		<script type="text/javascript">app.bootstrap.init();</script>
+		<script src="assets/app.js"></script>
 	</body>
 </html>
