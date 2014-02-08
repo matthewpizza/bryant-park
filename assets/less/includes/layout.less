@@ -1,8 +1,3 @@
-@import 'normalize.less';
-@import 'variables.less';
-@import 'mixins.less';
-@import 'fonts.less';
-
 *,
 *:before,
 *:after {
@@ -24,17 +19,19 @@
 	.no-js-message { display: none; }
 }
 
-.wf-loading {
+.js.wf-loading {
 	.date,
 	.controls,
-	p {
+	p,
+	h1 {
 		visibility: hidden;
 	}
 }
-.wf-active {
+.js.wf-active {
 	.date,
 	.controls,
-	p {
+	p,
+	h1 {
 		visibility: visible;
 	}
 }
@@ -345,6 +342,3 @@ main {
 		}
 	}
 }
-
-
-@import 'responsive.less';
