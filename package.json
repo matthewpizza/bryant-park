@@ -1,0 +1,14 @@
+{
+  "name": "bryant-park",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.5",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-less": "~0.9.0",
+    "grunt-markdown": "~0.5.0",
+    "grunt-preprocess": "~4.0.0",
+    "grunt-contrib-cssmin": "~0.7.0"
+  }
+}
