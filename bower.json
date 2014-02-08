@@ -1,0 +1,23 @@
+{
+	"name": "bryant-park",
+	"version": "0.0.1",
+	"homepage": "http://matthewspencer.me/bryant-park/",
+	"authors": [
+		"Matthew Spencer"
+	],
+	"description": "Bryant Park Today",
+	"license": "MIT",
+	"private": true,
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	],
+	"dependencies": {
+		"jquery": "~2.1.0",
+		"jquery-simple-touch": "~0.1.5",
+		"underscore": "~1.5.2"
+	}
+}
