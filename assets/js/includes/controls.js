@@ -24,6 +24,7 @@ var app = (function(app, $) {
 			
 			if ( app.util.is_touch_device() ) {
 				_init_touch();
+				$('html').addClass('touch');
 			}
 			else {
 				_init_keyboard();
