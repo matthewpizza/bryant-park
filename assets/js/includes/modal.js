@@ -90,13 +90,19 @@ var app = (function(app, $) {
 
 		function _modal_size() {
 			var window_height = $( window ).height(),
-				modal_height = window_height - 80;
+				modal_height = window_height - 80,
+				top = 40
+			;
 
-			if ( $('html').hasClass('touch') ) {
+			if ( app.util.is_touch_device() ) {
 				modal_height = window_height;
+				top = 0;
 			}
 
-			$('.about').css( 'height', modal_height + 'px' );
+			$('.about')
+				.css( 'height', modal_height + 'px' )
+				.css( 'top', top + 'px' )
+			;
 			
 		}
 

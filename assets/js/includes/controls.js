@@ -24,7 +24,6 @@ var app = (function(app, $) {
 			
 			if ( app.util.is_touch_device() ) {
 				_init_touch();
-				$('html').addClass('touch');
 			}
 			else {
 				_init_keyboard();
@@ -209,6 +208,7 @@ var app = (function(app, $) {
 						break;
 
 						case 'info':
+							debug('info');
 							_info_modal();
 						break;
 					}
