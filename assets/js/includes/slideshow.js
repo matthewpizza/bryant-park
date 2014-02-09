@@ -14,6 +14,7 @@ var app = (function(app, $) {
 	app.slideshow = (function($){
 
 		var debug = app.util.debug,
+			transitionEnd = app.util.whichTransitionEvent(),
 			json = null,
 			_count = 0, // Global _counter, everyone gets on this
 			total = null,
@@ -33,6 +34,7 @@ var app = (function(app, $) {
 		
 		function init() {
 
+			_init_resize();
 			_init_slideshow();
 
 		}
@@ -72,12 +74,40 @@ var app = (function(app, $) {
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+		function _slideshow_size() {
+			var window_width = $('body').outerWidth(),
+				width = $('.image').outerWidth(),
+				max = 612
+			;
+
+			if ( width < max && width < window_width ) width = max;
+			if ( width > window_width ) width = window_width;
+
+			$('.images')
+				.css('width', width + 'px')
+				.css('height', width + 'px')
+			;
+
+			$('.image')
+				.css('height', width + 'px')
+			;
+		}
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+		function _init_resize() {
+			var resize_slideshow = _.throttle( _slideshow_size, 100 )
+			;
+
+			$(window).on('resize', resize_slideshow);
+		}
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 		function _load() {
 			if ( _count !== 0 ) $('.restart.disabled').removeClass('disabled');
 
-			date = app.util.get_date( new Date(json[_count].date * 1000) );
-			link = json[_count].link;
-			$('.date').html('<a href="' + link + '" target="_blank">' + date + '</a>');
+			_load_date();
 
 			prev_count = _prev_count(_count);
 			next_count = _next_count(_count);
@@ -97,6 +127,16 @@ var app = (function(app, $) {
 			$('.image.next')
 				.css({ 'background-image':  'url(' + next_img + ')' })
 			;
+
+			_slideshow_size();
+		}
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+		function _load_date() {
+			date = app.util.get_date( new Date(json[_count].date * 1000) );
+			link = json[_count].link;
+			$('.date').html('<a href="' + link + '" target="_blank">' + date + '</a>');
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -119,7 +159,7 @@ var app = (function(app, $) {
 
 			window.setTimeout(function(){
 				$('.restart').addClass('disabled');
-			}, 200);
+			}, 500);
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
