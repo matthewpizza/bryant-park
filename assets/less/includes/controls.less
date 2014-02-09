@@ -1,0 +1,121 @@
+.controls {
+
+	position: relative;
+	z-index: 21;
+
+	a {
+		text-decoration: none;
+		position: fixed;
+
+		.transition( all 0.3s ease-out );
+
+		&.random,
+		&.restart {
+			top: 20px;
+		}
+		&.random {
+			font-size: 32px;
+			line-height: 32px;
+
+			left: 24px;
+			
+			&.active,
+			&:active {
+				font-size: 36px;
+				line-height: 36px;
+			}
+		}
+		&.restart {
+			font-size: 32px;
+			line-height: 32px;
+			left: 82px;
+
+			&:hover {
+				.transform( rotate(15deg) );
+			}
+			
+			&.active,
+			&:active {
+				.transform( rotate(-360deg) );
+				.transition( all 0 ease-out );
+			}
+
+			&.disabled {
+				color: #666;
+
+				&:hover,
+				&.active,
+				&:active {
+					.transform( rotate(0deg) );
+					.transition( all 0 ease-out );
+				}
+			}
+		}
+
+		&.info {
+			top: 20px;
+			right: 20px;
+			font-size: 32px;
+			line-height: 32px;
+
+			&.active,
+			&:active {
+				top: 22px;
+			}
+		}
+
+		&.play,
+		&.pause {
+			font-size: 36px;
+			line-height: 36px;
+
+			right: 24px;
+			bottom: 12px;
+			
+			&.active,
+			&:active {
+				bottom: 10px;
+			}
+		}
+		&.pause {
+			display: none;
+		}
+		
+		&.prev,
+		&.next {
+			font-size: 72px;
+			line-height: 72px;
+			top: 50%;
+			margin-top: -37px;
+			text-shadow: 0 0 transparent, 0 0 transparent, 0 0 transparent;
+		}
+
+		&.prev {
+			left: 4px;
+
+			&:hover {
+				left: 0;
+				text-shadow: 2px 0 blue, 3px 0 blue, 4px 0 blue;
+			}
+			&.active,
+			&:active {
+				left: -2px;
+				text-shadow: 4px 0 blue, 5px 0 blue, 6px 0 blue;
+			}
+		}
+
+		&.next {
+			right: 4px;
+
+			&:hover {
+				right: 0;
+				text-shadow: -2px 0 blue, -3px 0 blue, -4px 0 blue;
+			}
+			&.active,
+			&:active {
+				right: -2px;
+				text-shadow: -4px 0 blue, -5px 0 blue, -6px 0 blue;
+			}
+		}
+	}
+}

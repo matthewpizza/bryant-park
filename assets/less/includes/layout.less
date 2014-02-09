@@ -6,6 +6,11 @@
 	box-sizing: border-box;
 }
 
+html,
+body {
+	height: 100%;
+}
+
 .hide {
 	display: none;
 }
@@ -15,7 +20,7 @@
 }
 
 .js {
-	.about,
+	.modal,
 	.no-js-message { display: none; }
 }
 
@@ -72,6 +77,7 @@ header {
 	bottom: 10px;
 	left: 20px;
 	text-align: right;
+	z-index: 20;
 
 	.date {
 		position: fixed;
@@ -86,147 +92,39 @@ header {
 
 main {
 	width: 100%;
+	height: 100%;
 	max-width: 612px;
 	margin: auto;
-	position: relative;
+
+	.images {
+		position: relative;
+		z-index: 1;
+		top: 50%;
+		-webkit-transform: translateY(-50%);
+		-ms-transform: translateY(-50%);
+		transform: translateY(-50%);
+	}
 
 	.image {
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: contain;
-		position: fixed;
-		top: 0;
-		bottom: 0;
 
 		width: 100%;
 		max-width: 612px;
 
+		position: fixed;
+		top: 0;
+
+		// transition: 0.5s;
+
 		&.current {
-			z-index: -1;
+			z-index: 3;
 		}
 
 		&.prev,
 		&.next {
-			display: none;
-		}
-	}
-
-	.controls {
-
-		a {
-			text-decoration: none;
-			position: fixed;
-
-			.transition( all 0.3s ease-out );
-
-			&.random,
-			&.restart {
-				top: 20px;
-			}
-			&.random {
-				font-size: 32px;
-				line-height: 32px;
-
-				left: 24px;
-				
-				&.active,
-				&:active {
-					font-size: 36px;
-					line-height: 36px;
-				}
-			}
-			&.restart {
-				font-size: 32px;
-				line-height: 32px;
-				left: 82px;
-
-				&:hover {
-					.transform( rotate(15deg) );
-				}
-				
-				&.active,
-				&:active {
-					.transform( rotate(-360deg) );
-					.transition( all 0 ease-out );
-				}
-
-				&.disabled {
-					color: #666;
-
-					&:hover,
-					&.active,
-					&:active {
-						.transform( rotate(0deg) );
-						.transition( all 0 ease-out );
-					}
-				}
-			}
-
-			&.info {
-				top: 20px;
-				right: 20px;
-				font-size: 32px;
-				line-height: 32px;
-
-				&.active,
-				&:active {
-					top: 22px;
-				}
-			}
-
-			&.play,
-			&.pause {
-				font-size: 36px;
-				line-height: 36px;
-
-				right: 24px;
-				bottom: 12px;
-				
-				&.active,
-				&:active {
-					bottom: 10px;
-				}
-			}
-			&.pause {
-				display: none;
-			}
-			
-			&.prev,
-			&.next {
-				font-size: 72px;
-				line-height: 72px;
-				top: 50%;
-				margin-top: -37px;
-				text-shadow: 0 0 transparent, 0 0 transparent, 0 0 transparent;
-			}
-
-			&.prev {
-				left: 4px;
-
-				&:hover {
-					left: 0;
-					text-shadow: 2px 0 blue, 3px 0 blue, 4px 0 blue;
-				}
-				&.active,
-				&:active {
-					left: -2px;
-					text-shadow: 4px 0 blue, 5px 0 blue, 6px 0 blue;
-				}
-			}
-
-			&.next {
-				right: 4px;
-
-				&:hover {
-					right: 0;
-					text-shadow: -2px 0 blue, -3px 0 blue, -4px 0 blue;
-				}
-				&.active,
-				&:active {
-					right: -2px;
-					text-shadow: -4px 0 blue, -5px 0 blue, -6px 0 blue;
-				}
-			}
+			z-index: 1;
 		}
 	}
 }
