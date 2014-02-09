@@ -11,7 +11,9 @@ module.exports = function(grunt) {
 					'assets/js/vendor/jquery-simple-touch/jquery-simple-touch.js',
 					'assets/js/bootstrap.js',
 					'assets/js/includes/util.js',
-					'assets/js/includes/*.js'
+					'assets/js/includes/slideshow.js',
+					'assets/js/includes/modal.js',
+					'assets/js/includes/controls.js'
 				],
 				dest: 'assets/js/app.concat.js',
 			}
