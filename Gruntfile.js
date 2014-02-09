@@ -10,6 +10,7 @@ module.exports = function(grunt) {
 					'assets/js/vendor/jquery/jquery.js',
 					'assets/js/vendor/jquery-simple-touch/jquery-simple-touch.js',
 					'assets/js/bootstrap.js',
+					'assets/js/includes/util.js',
 					'assets/js/includes/*.js'
 				],
 				dest: 'assets/js/app.concat.js',
