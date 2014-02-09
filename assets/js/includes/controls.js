@@ -207,6 +207,10 @@ var app = (function(app, $) {
 						case 'pause':
 							_play_pause();
 						break;
+
+						case 'info':
+							_info_modal();
+						break;
 					}
 
 					e.preventDefault();
