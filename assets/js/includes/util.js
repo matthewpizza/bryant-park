@@ -48,13 +48,33 @@ var app = (function(app, $) {
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+		function whichTransitionEvent(){
+			var t;
+			var el = document.createElement('fakeelement');
+			var transitions = {
+				'transition':'transitionend',
+				'OTransition':'oTransitionEnd',
+				'MozTransition':'transitionend',
+				'WebkitTransition':'webkitTransitionEnd'
+			};
+
+			for(t in transitions){
+				if( el.style[t] !== undefined ){
+					return transitions[t];
+				}
+			}
+		}
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 		
 		/* return public-facing methods and/or vars */
 		return {
 			init : init,
 			debug : debug,
 			is_touch_device : is_touch_device,
-			get_date : get_date
+			get_date : get_date,
+			whichTransitionEvent : whichTransitionEvent
 		};
 		
 	}($));
