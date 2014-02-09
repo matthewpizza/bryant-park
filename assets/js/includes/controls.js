@@ -218,6 +218,12 @@ var app = (function(app, $) {
 				.on('tap', '.icon-cross, .overlay', function() {
 					_modal_hide();
 				})
+				.on('swipeleft', 'main', function() {
+					_next();
+				})
+				.on('swiperight', 'main', function() {
+					_prev();
+				})
 			;
 
 		}
