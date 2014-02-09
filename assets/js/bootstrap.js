@@ -19,37 +19,16 @@ var app = (function( app ) {
 	app.bootstrap = (function(){
 		
 		// vars
-		var $ = null,
-			debug = _debug,
-			_init_callbacks = [],
-			testing = false
+		var debug = null,
+			_init_callbacks = []
 		;
 			
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 		
-		function _init() {
-			
+		function init() {
 			if ( app.initialized ) return false; // the app has already been initialized
 
-			// store ref to jQuery
-			$ = jQuery;
-
-			_onload();
-
-			testing = false;
-			// debug( 'We are testing' );
-
-			if (
-				_is_touch_device() ||
-				testing === true
-			) {
-				$.getScript( 'assets/js/jquery.tap.min.js' )
-					.done(function( script, textStatus ) {
-						$('html').addClass('touch');
-						debug( textStatus );
-					})
-				;
-			}
+			if ( app.util.debug ) debug = app.util.debug;
 			
 			for (var i=0; i < _init_callbacks.length; i++) {
 				_init_callbacks[i]();
@@ -60,7 +39,7 @@ var app = (function( app ) {
 		
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 		
-		function _register( callback ) {
+		function register( callback ) {
 			
 			_init_callbacks.push( callback );
 			
@@ -68,123 +47,10 @@ var app = (function( app ) {
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 		
-		function _debug( obj, showCaller ) {
-			if ( ( typeof console == "object" ) && ( console.log ) ) {
-				if (showCaller) {
-					console.log( arguments.callee.caller.name + ':' );
-				}
-				console.log( obj );
-			}
-			return false;
-		}
-
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-		function _is_touch_device() {
-			return 'ontouchstart' in window || // works on most browsers 
-					'onmsgesturechange' in window; // works on ie10
-		}
-
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-		function _onload() {
-			$('.no-js-message').remove();
-
-			// image markup
-			_preload_images();
-
-			// date markup
-			_preload_header();
-
-			// append close button
-			_preload_about();
-
-			// load visual controls
-			_load_controls();
-
-			// load overlay html
-			_preload_overlay();
-
-			// load keyboard shortcuts
-			if ( ! _is_touch_device() ) {
-				_preload_shortcuts();
-			}
-		}
-
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-		function _preload_overlay() {
-			$('<div />', {
-				class: 'overlay hide'
-			}).appendTo( 'body' );
-		}
-
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-		function _preload_shortcuts() {
-			$.ajax({
-				url: 'assets/includes/shortcuts.html',
-				cache: false
-			}).done(function( html ) {
-				$( 'body' ).append( html );
-				$('<div />', {
-					class: 'icon-cross'
-				}).appendTo( '.shortcuts' );
-			});
-		}
-
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-		function _preload_images() {
-			$('<div />', {
-				class: 'images'
-			}).appendTo( 'main' );
-			$('<div />', {
-				class: 'image current'
-			}).appendTo( '.images' );
-			$('<div />', {
-				class: 'image prev'
-			}).appendTo( '.images' );
-			$('<div />', {
-				class: 'image next'
-			}).appendTo( '.images' );
-		}
-
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-		function _preload_header() {
-			$('<div />', {
-				class: 'date'
-			}).appendTo( 'header' );
-		}
-
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-		function _preload_about() {
-			$('<div />', {
-				class: 'icon-cross'
-			}).appendTo( '.about' );
-		}
-
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-		function _load_controls() {
-			$.ajax({
-				url: 'assets/includes/controls.html',
-				cache: false
-			}).done(function( html ) {
-				$( html ).appendTo( 'main' ).show( 'slow' );
-			});
-		}
-
-		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-		
 		/* return public-facing methods and/or vars */
 		return {
-			init : _init,
-			register : _register,
-			debug : _debug,
-			is_touch_device : _is_touch_device,
+			init : init,
+			register : register
 		};
 		
 	}());
