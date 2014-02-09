@@ -25,6 +25,8 @@ var app = (function(app, $) {
 			
 			_init_overlay();
 			_init_about();
+			_modal_size();
+			_init_resize();
 
 			if ( ! app.util.is_touch_device() ) {
 				_load_shortcuts();
@@ -63,6 +65,15 @@ var app = (function(app, $) {
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+		function _init_resize() {
+			var resize_modal = _.throttle( _modal_size, 100 )
+			;
+
+			$(window).on('resize', resize_modal);
+		}
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 		function _toggle_modal() {
 			if ( _modal_visible === false ) {
 				// show modal
@@ -73,6 +84,20 @@ var app = (function(app, $) {
 				$('.overlay').hide();
 				_modal_visible = false;
 			}
+		}
+
+		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+		function _modal_size() {
+			var window_height = $( window ).height(),
+				modal_height = window_height - 80;
+
+			if ( $('html').hasClass('touch') ) {
+				modal_height = window_height;
+			}
+
+			$('.about').css( 'height', modal_height + 'px' );
+			
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -105,21 +130,12 @@ var app = (function(app, $) {
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 		function project_info() {
+			_toggle_modal();
+
 			if ( project_info_visible === false ) {
-				var window_height = $( window ).height(),
-					modal_height = window_height - 80;
-
-				if ( $('html').hasClass('touch') ) {
-					modal_height = window_height;
-				}
-
-				_toggle_modal();
-				$('.about')
-					.css( 'height', modal_height + 'px' )
-					.show();
+				$('.about').show();
 				project_info_visible = true;
 			} else {
-				_toggle_modal();
 				$('.about').hide();
 				project_info_visible = false;
 			}
