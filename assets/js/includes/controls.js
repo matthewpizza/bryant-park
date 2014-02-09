@@ -103,8 +103,8 @@ var app = (function(app, $) {
 						_keyboard_modal();
 					break;
 
-					// shift i
-					case keys.key_16 && keys.key_73:
+					// g i
+					case keys.key_71 && keys.key_191:
 						e.preventDefault();
 
 						_info_modal();
