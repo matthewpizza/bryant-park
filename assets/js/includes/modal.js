@@ -90,17 +90,24 @@ var app = (function(app, $) {
 
 		function _modal_size() {
 			var window_height = $( window ).height(),
-				modal_height = window_height - 80,
+				window_width = $( window ).width(),
+				height = window_height - 80,
+				width = ( 600 > window_width * 0.6 ? window_width * 0.6 : 600),
 				top = 40
 			;
 
 			if ( app.util.is_touch_device() ) {
-				modal_height = window_height;
+				height = window_height;
 				top = 0;
 			}
 
+			if ( window_width < 600 ) {
+				width = window_width;
+			}
+
 			$('.about')
-				.css( 'height', modal_height + 'px' )
+				.css( 'height', height + 'px' )
+				.css( 'width', width + 'px' )
 				.css( 'top', top + 'px' )
 			;
 			
