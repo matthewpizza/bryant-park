@@ -20,12 +20,31 @@
 		top: 13px;
 	}
 }
-.about {
+.modal {
 	width: 100%;
 	height: auto;
 
 	background-color: #fff;
 	color: #000;
+
+	.about {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+
+		overflow: scroll;
+
+		padding: 30px 0;
+
+		font-size: 1em;
+		line-height: 1.5em;
+		
+		p {
+			padding: 0 60px;
+		}
+	}
 
 	position: fixed;
 	top: 40px;
@@ -34,7 +53,6 @@
 	z-index: 200;
 
 	margin: auto;
-	padding: 60px 100px;
 
 	a {
 		color: #000;

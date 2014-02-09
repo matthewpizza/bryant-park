@@ -22,6 +22,7 @@ var app = (function(app, $) {
 		
 		function init() {
 			$('.no-js-message').remove();
+			$('section').addClass('modal');
 			
 			_init_overlay();
 			_init_about();
@@ -60,7 +61,7 @@ var app = (function(app, $) {
 		function _init_about() {
 			$('<div />', {
 				class: 'icon-cross'
-			}).appendTo( '.about' );
+			}).appendTo( 'section.modal' );
 		}
 
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -105,7 +106,7 @@ var app = (function(app, $) {
 				width = window_width;
 			}
 
-			$('.about')
+			$('section.modal')
 				.css( 'height', height + 'px' )
 				.css( 'width', width + 'px' )
 				.css( 'top', top + 'px' )
@@ -146,10 +147,10 @@ var app = (function(app, $) {
 			_toggle_modal();
 
 			if ( project_info_visible === false ) {
-				$('.about').show();
+				$('section.modal').show();
 				project_info_visible = true;
 			} else {
-				$('.about').hide();
+				$('section.modal').hide();
 				project_info_visible = false;
 			}
 		}
